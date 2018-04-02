@@ -33,7 +33,7 @@ action :create do
     notifies :run, "execute[systemctl daemon-reload]", :immediately
   end
 
-  commands = %w(start stop restart status).map do |action|
+  commands = %w(start stop restart status enable disable).map do |action|
     "/bin/systemctl #{action} #{new_resource.service}"
   end
 
