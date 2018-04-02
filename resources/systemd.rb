@@ -31,6 +31,7 @@ action :create do
       rails_env: new_resource.rails_env
     )
     notifies :run, "execute[systemctl daemon-reload]", :immediately
+    cookbook "rails"
   end
 
   commands = %w(start stop restart status enable disable).map do |action|
