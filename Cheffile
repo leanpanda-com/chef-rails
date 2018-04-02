@@ -2,3 +2,5 @@ site "https://supermarket.chef.io/api/v1"
 
 cookbook "nginx",
   git: "git@gitlab.cantierecreativo.net:cantiere-devops/chef-nginx.git"
+cookbook "postgresql",
+  git: "https://github.com/joeyates/chef-postgresql.git"
