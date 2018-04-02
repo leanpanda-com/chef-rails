@@ -4,3 +4,5 @@ cookbook "nginx",
   git: "git@gitlab.cantierecreativo.net:cantiere-devops/chef-nginx.git"
 cookbook "postgresql",
   git: "https://github.com/joeyates/chef-postgresql.git"
+cookbook "ruby_build"
+cookbook "ruby_rbenv"
