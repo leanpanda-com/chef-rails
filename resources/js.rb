@@ -5,9 +5,9 @@ default_action :create
 
 property :name, String, default: "default"
 
-include_recipe "nodejs"
-
 action :create do
+  include_recipe "nodejs"
+
   apt_repository "yarn" do
     action       :add
     key          "https://dl.yarnpkg.com/debian/pubkey.gpg"
