@@ -3,7 +3,7 @@ resource_name :rails_js
 actions :create
 default_action :create
 
-property :name, String, name_property: true, default: "default"
+property :name, String, default: "default"
 
 include_recipe "nodejs"
 
