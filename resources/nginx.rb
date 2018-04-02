@@ -6,6 +6,7 @@ default_action :create
 property :name, String, default: "default_server"
 property :rails_env, String, default: "production"
 property :port, Integer, default: 3000
+property :extras, Array, default: []
 
 action :create do
   nginx_http_server do
@@ -24,5 +25,6 @@ action :create do
     proxies(
       rails_upstream => %w(/)
     )
+    extras new_resource.extras
   end
 end
