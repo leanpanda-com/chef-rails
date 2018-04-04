@@ -65,6 +65,7 @@ action :create do
     user new_resource.user
     group new_resource.group
     mode 0600
+    only_if { node["rails"]["version"] >= "5.2" }
   end
 
   log_path_base = ::File.join(shared_path, "log")
