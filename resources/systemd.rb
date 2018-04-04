@@ -6,7 +6,7 @@ default_action :create
 property :name, String, name_attribute: true
 property :app_path, String
 property :user, String, default: "deploy"
-property :rails_env, String, default: "production"
+property :environment, Hash, default: {}
 
 action :create do
   execute "systemctl daemon-reload" do
@@ -28,7 +28,7 @@ action :create do
     variables(
       name: new_resource.name,
       app_path: new_resource.app_path,
-      rails_env: new_resource.rails_env
+      environment: new_resource.environment
     )
     notifies :run, "execute[systemctl daemon-reload]", :immediately
     cookbook "rails"

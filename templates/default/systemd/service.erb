@@ -7,9 +7,13 @@ User=deploy
 Group=deploy
 WorkingDirectory=<%= @app_path %>
 ExecStart=<%= @app_path %>/bin/bundle exec puma
-Environment=PATH=/usr/local/rbenv/shims:/usr/local/rbenv/bin:/usr/local/bin:/usr/bin:/bin
-Environment=RAILS_ENV=<%= @rails_env %>
-Environment=LANG=en_US.UTF-8
+<%-
+@environment.each do |name, value|
+%>
+<%= name %>=<%= value %>
+<%-
+end
+%>
 LimitNOFILE=65536
 UMask=0027
 SyslogIdentifier=<%= @name %>
