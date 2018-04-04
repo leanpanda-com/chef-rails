@@ -1,5 +1,6 @@
 site "https://supermarket.chef.io/api/v1"
 
+cookbook "logrotate"
 cookbook "nginx",
   git: "git@gitlab.cantierecreativo.net:cantiere-devops/chef-nginx.git"
 cookbook "nodejs"

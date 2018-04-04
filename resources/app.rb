@@ -66,4 +66,14 @@ action :create do
     group new_resource.group
     mode 0600
   end
+
+  log_path_base = ::File.join(shared_path, "log")
+  log_name_base =
+    new_resource.base_path.sub(%r{/}, "").tr("/", "_")
+
+  rails_logrotate log_name_base + "_rails" do
+    path ::File.join(log_path_base, "#{new_resource.rails_env}.log")
+    user new_resource.user
+    group new_resource.group
+  end
 end
