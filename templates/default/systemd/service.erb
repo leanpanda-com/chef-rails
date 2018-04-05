@@ -10,7 +10,7 @@ ExecStart=<%= @app_path %>/bin/bundle exec puma
 <%-
 @environment.each do |name, value|
 %>
-<%= name %>=<%= value %>
+Environment=<%= name %>=<%= value %>
 <%-
 end
 %>
