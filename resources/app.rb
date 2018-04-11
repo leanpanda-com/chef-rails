@@ -5,20 +5,8 @@ default_action :create
 
 property :base_path, String, name_attribute: true
 property :rails_env, String, default: "production"
-property :master_key, String
-property :database_config, Hash
-property :user, String
-property :group, String
-
-DEFAULT_DATABASE_CONFIG = {
-  "adapter" => "postgresql",
-  "port" => 5432,
-  "encoding" => "utf8",
-  "pool" => 5,
-  "min_messages" => "warning",
-  "reaping_frequency" => 10,
-  "timeout" => 5000
-}.freeze
+property :user, String, default: "deploy"
+property :group, String, default: "deploy"
 
 action_class do
   include Rails::Paths
@@ -28,31 +16,6 @@ action :create do
   rails_directories new_resource.base_path do
     user new_resource.user
     group new_resource.group
-  end
-
-  config_path = rails_config_path(base_path: new_resource.base_path)
-  database_yml_path = ::File.join(config_path, "database.yml")
-
-  database_env_config = DEFAULT_DATABASE_CONFIG.merge(
-    new_resource.database_config
-  )
-  full_config = {new_resource.rails_env => database_env_config}
-
-  file database_yml_path do
-    content full_config.to_yaml
-    user new_resource.user
-    group new_resource.group
-    mode 0600
-  end
-
-  master_key_path = ::File.join(config_path, "master.key")
-
-  file master_key_path do
-    content new_resource.master_key
-    user new_resource.user
-    group new_resource.group
-    mode 0600
-    only_if { node["rails"]["version"] >= "5.2" }
   end
 
   shared_path = rails_shared_path(base_path: new_resource.base_path)
