@@ -20,30 +20,17 @@ DEFAULT_DATABASE_CONFIG = {
   "timeout" => 5000
 }.freeze
 
+action_class do
+  include Rails::Paths
+end
+
 action :create do
-  directory new_resource.base_path do
-    recursive true
+  rails_directories new_resource.base_path do
     user new_resource.user
     group new_resource.group
-    mode 0755
   end
 
-  shared_path = ::File.join(new_resource.base_path, "shared")
-
-  directory shared_path do
-    user new_resource.user
-    group new_resource.group
-    mode 0755
-  end
-
-  config_path = ::File.join(shared_path, "config")
-
-  directory config_path do
-    user new_resource.user
-    group new_resource.group
-    mode 0755
-  end
-
+  config_path = rails_config_path(base_path: new_resource.base_path)
   database_yml_path = ::File.join(config_path, "database.yml")
 
   database_env_config = DEFAULT_DATABASE_CONFIG.merge(
@@ -68,6 +55,7 @@ action :create do
     only_if { node["rails"]["version"] >= "5.2" }
   end
 
+  shared_path = rails_shared_path(base_path: new_resource.base_path)
   log_path_base = ::File.join(shared_path, "log")
   log_name_base =
     new_resource.base_path.sub(%r{/}, "").tr("/", "_")
