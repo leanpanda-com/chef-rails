@@ -7,6 +7,7 @@ User=deploy
 Group=deploy
 WorkingDirectory=<%= @app_path %>
 ExecStart=<%= @app_path %>/bin/bundle exec puma
+EnvironmentFile=/etc/environment
 <%-
 @environment.each do |name, value|
 %>
