@@ -9,6 +9,7 @@ property :bundler_version, [String, NilClass], default: nil
 action :create do
   ruby_rbenv_system_install "default"
   rbenv_ruby new_resource.version
+  rbenv_global new_resource.version
 
   rbenv_gem "bundler" do
     version new_resource.bundler_version if new_resource.bundler_version
