@@ -4,6 +4,8 @@ actions :create
 default_action :create
 
 property :base_path, String, name_attribute: true
+property :user, String, default: "deploy"
+property :group, String, default: "deploy"
 
 action_class do
   include Rails::Paths
