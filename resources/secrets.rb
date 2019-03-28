@@ -12,7 +12,7 @@ property :group, String
 action :create do
   config_path = ::File.join(new_resource.base_path, "shared", "config")
   secrets_yml_path = ::File.join(config_path, "secrets.yml")
-  full_secrets = {new_resource.rails_env => secrets}
+  full_secrets = {new_resource.rails_env => new_resource.secrets}
 
   file secrets_yml_path do
     content full_secrets.to_yaml
