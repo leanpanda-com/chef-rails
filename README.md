@@ -24,6 +24,23 @@ Configure a server for a Rails application.
 * `rails_secrets` - creates `config/secrets.yml` - not needed if you use `rails_environment`
 * `rails_shared_file` - creates a file under the `shared` directory
 
+# Dependencies
+
+In order to install Ruby versions, add the following dependencies:
+
+```ruby
+cookbook "chef-nginx"
+cookbook "ruby_build"
+cookbook "ruby_rbenv"
+```
+
+and put this in `metadata.rb`:
+
+```ruby
+depends "ruby_build"
+depends "ruby_rbenv"
+```
+
 ### Chef
 
 - Chef 13.0 or later
