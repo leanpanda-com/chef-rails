@@ -7,7 +7,7 @@ property :version, String, name_attribute: true
 property :bundler_version, [String, NilClass], default: nil
 
 action :create do
-  ruby_rbenv_system_install "default"
+  rbenv_system_install "default"
   rbenv_ruby new_resource.version
   rbenv_global new_resource.version
 
